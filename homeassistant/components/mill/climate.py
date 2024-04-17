@@ -112,7 +112,7 @@ class MillHeater(CoordinatorEntity[MillDataUpdateCoordinator], ClimateEntity):
         self._available = False
 
         self._id = heater.device_id
-        self._attr_unique_id = heater.device_id
+        self._attr_unique_id = str(heater.device_id)
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, heater.device_id)},
             manufacturer=MANUFACTURER,
