@@ -14,7 +14,6 @@ from homeassistant.components.assist_pipeline import (
     PipelineEvent,
     PipelineEventType,
     PipelineStage,
-    async_get_pipeline,
     async_get_pipelines,
     async_pipeline_from_audio_stream,
     vad,
@@ -23,6 +22,7 @@ from homeassistant.components.media_player import async_process_play_media_url
 from homeassistant.components.tts.media_source import (
     generate_media_source_id as tts_generate_media_source_id,
 )
+from homeassistant.const import EntityCategory
 from homeassistant.core import Context, callback
 from homeassistant.helpers import entity
 from homeassistant.helpers.entity import EntityDescription

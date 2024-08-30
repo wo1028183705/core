@@ -19,11 +19,15 @@ from homeassistant.components.assist_pipeline import (
     PipelineEventType,
     PipelineNotFound,
 )
+<<<<<<< HEAD
 from homeassistant.components.assist_satellite import (
     AssistSatelliteEntity,
     AssistSatelliteEntityDescription,
     AssistSatelliteState,
 )
+=======
+from homeassistant.components.assist_satellite import AssistSatelliteEntity
+>>>>>>> b329f33a643 (Add Assist satellite entity + VoIP (#123830))
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import Context, HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
