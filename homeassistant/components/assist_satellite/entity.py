@@ -46,9 +46,7 @@ class AssistSatelliteEntity(entity.Entity):
     entity_description: AssistSatelliteEntityDescription
     _attr_should_poll = False
     _attr_state: AssistSatelliteState | None = None
-    _attr_supported_features: AssistSatelliteEntityFeature = (
-        AssistSatelliteEntityFeature(0)
-    )
+    _attr_supported_features = AssistSatelliteEntityFeature(0)
     _attr_pipeline_entity_id: str | None = None
     _attr_vad_sensitivity_entity_id: str | None = None
 
