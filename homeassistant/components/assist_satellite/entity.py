@@ -29,7 +29,7 @@ from homeassistant.helpers.entity import EntityDescription
 from homeassistant.util import ulid
 
 from .errors import AssistSatelliteError, SatelliteBusyError
-from .models import AssistSatelliteState
+from .models import AssistSatelliteEntityFeature, AssistSatelliteState
 
 _CONVERSATION_TIMEOUT_SEC: Final = 5 * 60  # 5 minutes
 
@@ -46,6 +46,9 @@ class AssistSatelliteEntity(entity.Entity):
     entity_description: AssistSatelliteEntityDescription
     _attr_should_poll = False
     _attr_state: AssistSatelliteState | None = None
+    _attr_supported_features: AssistSatelliteEntityFeature = (
+        AssistSatelliteEntityFeature(0)
+    )
     _attr_pipeline_entity_id: str | None = None
     _attr_vad_sensitivity_entity_id: str | None = None
 
