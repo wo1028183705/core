@@ -121,7 +121,7 @@ class EsphomeAssistSatellite(
         self._audio_queue: asyncio.Queue[bytes | None] = asyncio.Queue()
         self._tts_streaming_task: asyncio.Task | None = None
         self._udp_server: VoiceAssistantUDPServer | None = None
-        self._announcement_finished = asyncio.Event()
+        self._announcement_finished: asyncio.Event | None = None
 
     @property
     def pipeline_entity_id(self) -> str | None:
@@ -267,7 +267,9 @@ class EsphomeAssistSatellite(
 
         Should block until the announcement is done playing.
         """
-        self._announcement_finished.clear()
+        if self._announcement_finished:
+            self._announcement_finished.set()
+
         self.cli.send_voice_assistant_announce(media_id, message)
         _LOGGER.debug(
             "Waiting for announcement to finished (message=%s, media_id=%s)",
@@ -275,6 +277,7 @@ class EsphomeAssistSatellite(
             media_id,
         )
 
+        self._announcement_finished = asyncio.Event()
         await self._announcement_finished.wait()
 
     async def handle_pipeline_start(
@@ -370,8 +373,10 @@ class EsphomeAssistSatellite(
 
     async def handle_announce_finished(self, media_id: str) -> None:
         """Handle when announcement is finished on satellite."""
-        _LOGGER.debug("Announcement finished: %s", media_id)
-        self._announcement_finished.set()
+        if self._announcement_finished:
+            _LOGGER.debug("Announcement finished: %s", media_id)
+            self._announcement_finished.set()
+            self._announcement_finished = None
 
     async def _stream_tts_audio(
         self,
