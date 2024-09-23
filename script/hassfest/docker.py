@@ -43,10 +43,12 @@ RUN \
         uv pip install homeassistant/home_assistant_*.whl; \
     fi \
     && if [ "${{BUILD_ARCH}}" = "i386" ]; then \
+        echo "i386: ${{BUILD_ARCH}}" && \
         linux32 uv pip install \
             --no-build \
             -r homeassistant/requirements_all.txt; \
     else \
+        echo "others: ${{BUILD_ARCH}}" && \
         uv pip install \
             --no-build \
             -r homeassistant/requirements_all.txt; \
