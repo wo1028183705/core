@@ -1644,6 +1644,11 @@ class ConfigEntryItems(UserDict[str, ConfigEntry]):
                     report_issue,
                 )
 
+            domain_entries = self._domain_unique_id_index.setdefault(entry.domain, {})
+            if unique_id_hash in domain_entries:
+                raise ValueError(
+                    f"{entry.domain} config entry with unique id {entry.unique_id} already exists"
+                )
             self._domain_unique_id_index.setdefault(entry.domain, {}).setdefault(
                 unique_id_hash, []
             ).append(entry)
