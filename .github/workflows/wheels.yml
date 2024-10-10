@@ -216,7 +216,7 @@ jobs:
           echo "mypy=$(cat requirements_test.txt | grep -e 'mypy.*==')" >> $GITHUB_OUTPUT
 
           touch requirements_mypyc.txt
-          cat homeassistant/package_constraints.txt | grep 'charset-normalizer==' >> requirements_mypyc.txt
+          cat homeassistant/package_constraints.txt | grep 'charset_normalizer==' >> requirements_mypyc.txt
 
       - name: Build wheels (old cython)
         uses: home-assistant/wheels@2024.07.1
