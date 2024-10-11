@@ -24,6 +24,7 @@ from homeassistant.const import (
     CONF_UNIQUE_ID,
     CONF_UNIT_OF_MEASUREMENT,
     MAX_LENGTH_STATE_STATE,
+    STATE_UNKNOWN,
 )
 from homeassistant.core import HomeAssistant, State, callback
 from homeassistant.exceptions import TemplateError
@@ -239,12 +240,18 @@ class ManualTriggerEntity(TriggerBaseEntity):
             attr.update(state_attributes)
         if extra_state_attributes := self.extra_state_attributes:
             attr.update(extra_state_attributes)
-        entity_state = str(self.state)
+        try:
+            entity_state = str(self.state)
+        except ValueError:
+            # Catch value errors e.g. sensor state expecting a number
+            # but the value is not a number.
+            # Return unknown state to not mix with availability template.
+            entity_state = STATE_UNKNOWN
         if len(entity_state) > MAX_LENGTH_STATE_STATE:
             entity_state = entity_state[:MAX_LENGTH_STATE_STATE]
         state = State(
             self.entity_id,
-            str(entity_state),
+            entity_state,
             attr,
             now,
             now,
