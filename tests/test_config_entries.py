@@ -2035,12 +2035,12 @@ async def test_entry_subentry_duplicate(
         domain="test",
         data={"first": True},
         subentries_data=[
-            {
-                "data": {},
-                "subentry_id": "blabla",
-                "title": "Mock title",
-                "unique_id": "test",
-            }
+            config_entries.ConfigSubentryData(
+                data={},
+                subentry_id="blabla",
+                title="Mock title",
+                unique_id="test",
+            )
         ],
     )
     entry.add_to_manager(manager)
@@ -5798,7 +5798,7 @@ async def test_unhashable_unique_id(
         minor_version=1,
         options={},
         source="test",
-        subentries_data={},
+        subentries_data=(),
         title="title",
         unique_id=unique_id,
         version=1,
@@ -5832,7 +5832,7 @@ async def test_hashable_non_string_unique_id(
         minor_version=1,
         options={},
         source="test",
-        subentries_data={},
+        subentries_data=(),
         title="title",
         unique_id=unique_id,
         version=1,
