@@ -2089,6 +2089,7 @@ sanix==1.0.6
 screenlogicpy==0.10.0
 
 # homeassistant.components.backup
+# homeassistant.components.cloud
 securetar==2024.2.1
 
 # homeassistant.components.emulated_kasa
